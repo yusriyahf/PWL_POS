@@ -33,3 +33,5 @@
     Route::put('/user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan']);
 
     Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
+
+    Route::get('/kategori', [KategoriController::class, 'index']);
