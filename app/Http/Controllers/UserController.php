@@ -18,6 +18,10 @@ class UserController extends Controller
     {
         return view('user_tambah');
     }
+    public function create()
+    {
+        return view('user.create');
+    }
 
     public function tambah_simpan(Request $request)
     {
