@@ -37,9 +37,9 @@
     Route::get('/kategori', [KategoriController::class, 'index']);
 
     Route::get('/kategori/create', [KategoriController::class, 'create']);
+    Route::post('/kategori', [KategoriController::class, 'store']);
     Route::get('/level/create', [LevelController::class, 'create']);
     Route::get('/user/create', [UserController::class, 'create']);
-    Route::post('/kategori', [KategoriController::class, 'store']);
 
     Route::post('/kategori/store', [KategoriController::class, 'store']);
     Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit']);

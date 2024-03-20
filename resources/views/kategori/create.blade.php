@@ -11,11 +11,28 @@
                 <div class="card-title">Buat kategori baru</div>
             </div>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="../kategori" method="post">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="kodeKategori">Kode Kategori</label>
-                        <input type="text" name="kodeKategori" id="kodeKategori" class="form-control">
+                        <label for="kategori_kode">Kode Kategori</label>
+                        <input type="text" name="kategori_kode" id="kategori_kode" class="form-control @error('kategori_kode')
+                            is-invalid
+                        @enderror">
+                        @error('kategori_kode')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="namaKategori">Nama Kategori</label>
