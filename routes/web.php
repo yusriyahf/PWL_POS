@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\POSController;
+use App\Http\Controllers\WelcomeController;
 
 /*
     |--------------------------------------------------------------------------
@@ -18,9 +19,9 @@ use App\Http\Controllers\POSController;
     |
     */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/level', [LevelController::class, 'index']);
 Route::get('/kategori', [KategoriController::class, 'index']);
@@ -49,3 +50,5 @@ Route::put('/kategori/update/{id}', [KategoriController::class, 'update']);
 Route::get('/kategori/delete/{id}', [KategoriController::class, 'destroy']);
 
 Route::resource('m_user', POSController::class);
+
+Route::get('/', [WelcomeController::class, 'index']);
