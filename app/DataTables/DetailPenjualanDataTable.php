@@ -2,9 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\KategoriModel;
+use App\Models\DetailPenjualanModel;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Monolog\Level;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -13,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class KategoriDataTable extends DataTable
+class DetailPenjualanDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -30,7 +29,7 @@ class KategoriDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(KategoriModel $model): QueryBuilder
+    public function query(DetailPenjualanModel $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -41,7 +40,7 @@ class KategoriDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('kategori-table')
+            ->setTableId('detailPenjualan-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -68,9 +67,11 @@ class KategoriDataTable extends DataTable
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),*/
-            Column::make('kategori_id'),
-            Column::make('kategori_kode'),
-            Column::make('kategori_nama'),
+            Column::make('detail_id'),
+            Column::make('penjualan_id'),
+            Column::make('barang_id'),
+            Column::make('harga'),
+            Column::make('jumlah'),
             Column::make('created_at'),
             Column::make('updated_at'),
         ];
@@ -81,6 +82,6 @@ class KategoriDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Kategori_' . date('YmdHis');
+        return 'DetailPenjualan_' . date('YmdHis');
     }
 }
