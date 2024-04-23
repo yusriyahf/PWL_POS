@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Models\LevelModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\LevelModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as UserAuthenticate;
 
-class UserModel extends Model
+/**
+ * @mixin IdeHelperUserModel
+ */
+class UserModel extends UserAuthenticate
 {
     use HasFactory;
 
