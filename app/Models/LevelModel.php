@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class LevelModel extends Model
@@ -15,8 +15,8 @@ class LevelModel extends Model
 
     protected $fillable = ['level_kode', 'level_nama'];
 
-    public function users(): HasMany
+    public function users(): BelongsTo
     {
-        return $this->hasMany(UserModel::class, 'level_id', 'level_id');
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
     }
 }
