@@ -6,6 +6,7 @@ use App\Models\KategoriModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class BarangModel extends Model
 {
@@ -16,7 +17,14 @@ class BarangModel extends Model
 
     // protected $guarded = ['barang_id'];
 
-    protected $fillable = ['barang_kode', 'kategori_id', 'barang_nama', 'harga_jual', 'harga_beli'];
+    protected $fillable = ['barang_kode', 'kategori_id', 'barang_nama', 'harga_jual', 'harga_beli', 'image'];
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($image) => url('/storage/posts/' . $image),
+        );
+    }
 
     public function kategori(): BelongsTo
     {
