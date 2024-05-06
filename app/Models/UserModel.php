@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as UserAuthenticate;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * @mixin IdeHelperUserModel
@@ -32,8 +33,16 @@ class UserModel extends UserAuthenticate implements JWTSubject
         'level_id',
         'username',
         'nama',
-        'password'
+        'password',
+        'image' //tambahan
     ];
+
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($image) => url('/storage/posts/' . $image),
+        );
+    }
 
     public function level(): BelongsTo
     {
