@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\KategoriController;
@@ -138,3 +139,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('manager', ManagerController::class);
     });
 });
+
+Route::get('/file-upload', [FileUploadController::class, 'fileUpload']);
+Route::post('/file-upload', [FileUploadController::class, 'prosesFileUpload']);
