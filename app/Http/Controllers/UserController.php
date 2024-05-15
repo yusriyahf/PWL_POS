@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $users = UserModel::select('user_id', 'username', 'nama', 'level_id')->with('level');
+        $users = UserModel::select('user_id', 'username', 'nama', 'level_id', 'image')->with('level');
         if ($request->level_id) {
             $users->where('level_id', $request->level_id);
         }
@@ -76,13 +76,21 @@ class UserController extends Controller
             'nama' => 'required|string|max:100',
             'password' => 'required|min:5',
             'level_id' => 'required|integer',
+            'berkas' => 'required|file|image|max:1000',
         ]);
+
+        $extfile = $request->berkas->getClientOriginalExtension();
+
+        $namaFile = $request->username . '.' . $extfile;
+
+        $request->berkas->move('gambar/user', $namaFile);
 
         UserModel::create([
             'username' => $request->username,
             'nama' => $request->nama,
             'password' => bcrypt($request->password),
-            'level_id' => $request->level_id
+            'level_id' => $request->level_id,
+            'image' => $namaFile
         ]);
 
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
@@ -133,14 +141,22 @@ class UserController extends Controller
             'username' => 'required|string|min:3|unique:m_user,username,' . $id . ',user_id',
             'nama' => 'required|string|max:100',
             'password' => 'nullable|min:5',
-            'level_id' => 'required|integer'
+            'level_id' => 'required|integer',
+            'berkas' => 'required|file|image|max:1000'
         ]);
+
+        $extfile = $request->berkas->getClientOriginalExtension();
+
+        $namaFile = $request->username . '.' . $extfile;
+
+        $request->berkas->move('gambar/user', $namaFile);
 
         UserModel::find($id)->update([
             'username' => $request->username,
             'nama' => $request->nama,
             'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
-            'level_id' => $request->level_id
+            'level_id' => $request->level_id,
+            'image' => $namaFile
         ]);
 
         return redirect('/user')->with('success', 'Data user berhasil diubah');

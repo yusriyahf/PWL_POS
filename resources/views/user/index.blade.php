@@ -33,7 +33,7 @@
 <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
 <thead>
 <tr><th>ID</th><th>Username</th><th>Nama</th><th>Level 
-    Pengguna</th><th>Aksi</th></tr>
+    Pengguna</th><th>Gambar</th><th>Aksi</th></tr>
 </thead>
 </table>
 </div>
@@ -75,6 +75,13 @@ data: "level.level_nama",
 className: "",
 orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
 searchable: false // searchable: true, jika ingin kolom ini bisa dicari
+},{
+    "data": "image",
+    "render": function(data, type, row) {
+        return '<img src="' + data + '" alt="Image" style="width:170px; height:auto;"/>';
+    },
+    "orderable": true,
+    "searchable": false
 },{
 data: "aksi",
 className: "",

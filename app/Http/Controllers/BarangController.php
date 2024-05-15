@@ -30,7 +30,7 @@ class BarangController extends Controller
 
     public function list(Request $request)
     {
-        $barangs = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id')->with('kategori');
+        $barangs = BarangModel::select('barang_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual', 'kategori_id', 'image')->with('kategori');
         if ($request->kategori_id) {
             $barangs->where('kategori_id', $request->kategori_id);
         }
@@ -89,14 +89,22 @@ class BarangController extends Controller
             'harga_beli' => 'required|min:5',
             'harga_jual' => 'required|min:5',
             'kategori_id' => 'required|integer',
+            'berkas' => 'required|file|image|max:2000'
         ]);
+
+        $extfile = $request->berkas->getClientOriginalExtension();
+
+        $namaFile = $request->barang_kode . '.' . $extfile;
+
+        $request->berkas->move('gambar/barang', $namaFile);
 
         BarangModel::create([
             'barang_kode' => $request->barang_kode,
             'barang_nama' => $request->barang_nama,
             'harga_beli' => $request->harga_beli,
             'harga_jual' => $request->harga_jual,
-            'kategori_id' => $request->kategori_id
+            'kategori_id' => $request->kategori_id,
+            'image' => $namaFile
         ]);
 
         return redirect('/barang')->with('success', 'Data kategori berhasil disimpan');
@@ -128,15 +136,23 @@ class BarangController extends Controller
             'barang_nama' => 'required|string|max:100',
             'harga_beli' => 'required|integer',
             'harga_jual' => 'required|integer',
-            'kategori_id' => 'required|integer'
+            'kategori_id' => 'required|integer',
+            'berkas' => 'required|file|image|max:1500'
         ]);
+
+        $extfile = $request->berkas->getClientOriginalExtension();
+
+        $namaFile = $request->barang_kode . '.' . $extfile;
+
+        $request->berkas->move('gambar/barang', $namaFile);
 
         BarangModel::find($id)->update([
             'barang_kode' => $request->barang_kode,
             'barang_nama' => $request->barang_nama,
             'harga_beli' => $request->harga_beli,
             'harga_jual' => $request->harga_jual,
-            'kategori_id' => $request->kategori_id
+            'kategori_id' => $request->kategori_id,
+            'image' => $namaFile
         ]);
 
         return redirect('/barang')->with('success', 'Data barang berhasil diubah');
